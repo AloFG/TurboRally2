@@ -1,7 +1,9 @@
 html, body {
+  background: rgb(19,159,41);
   margin: 0;
   padding: 0;
+  text-align: center;
 }
 canvas {
-  display: block;
+  display: center, block;
 }
