@@ -288,6 +288,9 @@ function draw7() {
   lap.push(L1);
   
   imageMode(CORNER);
+  
+  lap[0].display();
+  
   background(img7);
   car3();
   countdown();
@@ -302,7 +305,6 @@ function draw7() {
   flags[1].addTime(carX3, carY3);
   flags[2].addTime(carX3, carY3);
   
-  lap[0].display();
   lap[0].addTime(carX3, carY3);
 }
 
