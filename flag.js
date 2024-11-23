@@ -14,7 +14,8 @@ class Flag {
     let d = dist(this.x, this.y, objectX, objectY);
     
     if (d < this.s/2){
-      timer += 0.25;
+      timer += 0.5;
+      points += 25;
       //console.log("picked up flag");
     }
     
