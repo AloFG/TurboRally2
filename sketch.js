@@ -3,8 +3,9 @@ let timer = 10;
 let newtimer;
 let resetT = 10;
 let points = 0
-let resetP = 0
+let resetP = points - points;
 let flags = []; //create empty array for flags
+let lap = []; //create empty array for finish line
 
 //Things to add: Checkpoints that add points and time, a parameter that adds points when completing a lap, the final score after finishing a game
 
@@ -207,16 +208,22 @@ function draw5() {
   flags.push(f2);
   flags.push(f3);
   
+  let L1 = new Lap(350, 150);
+  
+  lap.push(L1);
+  
  
   
   imageMode(CORNER);
-
-  m1f1();
+  
+  lap[0].display();
+  
   background(img5);
   car1();
   countdown();
   text(timer, 380, 30);
   lapCount();
+  text("SCORE = "+ points, 70, 225);
   
   flags[0].display();
   flags[1].display();
@@ -225,28 +232,35 @@ function draw5() {
   flags[1].addTime(carX1, carY1);
   flags[2].addTime(carX1, carY1);
   
-  // checkP(200, 90)
-  // checkP(300, 200)
-  // checkP(50, 100)
-  //m1f1();
+  lap[0].addTime(carX1, carY1);
   
 }
 
 function draw6() {
-  //Intermediate Level-once completed redirect to leaderboard  
-  imageMode(CORNER);
-  background(img6);
-  car2();
-  countdown();
-  text(timer, 40, 30);
+  //Intermediate Level-once completed redirect to leaderboard
   
-  let f1 = new Flag(200, 90);
+  let f1 = new Flag(240, 110);
   let f2 = new Flag(300, 200);
-  let f3 = new Flag(50, 100);
+  let f3 = new Flag(150, 20);
   
   flags.push(f1);
   flags.push(f2);
   flags.push(f3);
+  
+  let L1 = new Lap(50, 90);
+  
+  lap.push(L1);
+  
+  imageMode(CORNER);
+  
+  lap[0].display();
+  
+  background(img6);
+  car2();
+  countdown();
+  text(timer, 40, 30);
+  lapCount();
+  text("SCORE = "+ points, 350, 20);
   
   flags[0].display();
   flags[1].display();
@@ -254,15 +268,12 @@ function draw6() {
   flags[0].addTime(carX2, carY2);
   flags[1].addTime(carX2, carY2);
   flags[2].addTime(carX2, carY2);
+  
+  lap[0].addTime(carX2, carY2);
 }
 
 function draw7() {
   //Expert Level-once completed redirect to leaderboard
-  imageMode(CORNER);
-  background(img7);
-  car3();
-  countdown();
-  text(timer, 210, 130);
   
   let f1 = new Flag(375, 40);
   let f2 = new Flag(300, 220);
@@ -272,12 +283,27 @@ function draw7() {
   flags.push(f2);
   flags.push(f3);
   
+  let L1 = new Lap(200, 10);
+  
+  lap.push(L1);
+  
+  imageMode(CORNER);
+  background(img7);
+  car3();
+  countdown();
+  text(timer, 210, 130);
+  lapCount();
+  text("SCORE = "+ points, 200, 75);
+  
   flags[0].display();
   flags[1].display();
   flags[2].display();
   flags[0].addTime(carX3, carY3);
   flags[1].addTime(carX3, carY3);
   flags[2].addTime(carX3, carY3);
+  
+  lap[0].display();
+  lap[0].addTime(carX3, carY3);
 }
 
 function draw8() {
@@ -285,7 +311,7 @@ function draw8() {
   imageMode(CORNER);
   background(150);
   fill(0);
-  text("TIME'S UP", width/2, height/2);
+  text("TIME'S UP! YOUR SCORE IS " + points, width/2, height/2);
   textSize(20);
   text("PRESS SPACE TO GO BACK TO MAIN MENU", width/2, 200);
 }
@@ -445,19 +471,12 @@ function checkP(x, y) {
   image(flagImg, x, y)
 }
 
-// function pass() {
-//   if ((carX1 > xf1) && (carX1 < xf1+wf1) && (carY1 > yf1) && (carY1 < yf1+hf1)) {
-//   newTimer == timer + 5;
-//  }
-// }
-
 function lapCount() {
   textSize(25);
   fill('blue');
-  text("LAP ="+ points, 40, 20);
   
   
-  if (timer == 0) {
+  if (timer < 0) {
     points = resetP;
   }
 }
