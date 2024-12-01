@@ -2,7 +2,7 @@ let state = 0;
 let timer = 10;
 let newtimer;
 let resetT = 10;
-let points = 0
+let points = 0;
 let resetP = points - points;
 let flags = []; //create empty array for flags
 let lap = []; //create empty array for finish line
@@ -56,19 +56,18 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(432, 238);
+  let canvas = createCanvas(432, 238);
+  canvas.parent("turbo");
   background(0);
   textAlign(CENTER);
   fill(255);
   text("CLICK TO START", 100, 125, 200);
-  
-  
-  
+
   carX1 = width / 1.155; //Map 1 Starting Position
   carY1 = height / 2;
   carX2 = width / 7.5; //Map 2 Starting Position
   carY2 = height / 1.5;
-  carX3 = width / 2.5;//Map 3 Starting Position
+  carX3 = width / 2.5; //Map 3 Starting Position
   carY3 = height / 6.5;
   carAngle = 0; // Initial direction
   carAngle1 = 89.5; //Map 1 Direction
@@ -76,9 +75,6 @@ function setup() {
 }
 
 function draw() {
-  
-
-  
   if (state == 1) {
     //Main Menu
     draw1();
@@ -104,50 +100,57 @@ function draw() {
     //End Screen
     draw8();
   }
-  
 }
 
 function keyPressed() {
+  if (state == 1 || state == 2 || state == 3 || state == 4) {
+    if (keyCode == 32) {
+      //SPACE BAR
+      state = 1;
+    } else if (keyCode == 13) {
+      //ENTER
+      state = 2;
+    } else if (keyCode == 67) {
+      //C
+      state = 3;
+    } else if (keyCode == 86) {
+      //V
+      state = 4;
+    }
+  }
 
-  if (state == 1 || state == 2 || state == 3 || state == 4){
-  if (keyCode == 32) {
-    //SPACE BAR
-    state = 1;
-  } else if (keyCode == 13) {
-    //ENTER
-    state = 2;
-  } else if (keyCode == 67) {
-    //C
-    state = 3;
-  } else if (keyCode == 86) {
-    //V
-    state = 4;
+  if (state == 5 || state == 6 || state == 7 || state == 8) {
+    if (keyCode == 32) {
+      //SPACE BAR
+      state = 1;
+    }
   }
 }
 
-if (state == 5 || state == 6 || state == 7 || state == 8){
-  if (keyCode == 32) {
-    //SPACE BAR
-    state = 1;
-  }
-}
-  
-}
-
-function mousePressed(){
+function mousePressed() {
   if (state == 0) {
     state = 1;
   }
 
   if (state == 2) {
-    if ((mouseX > x1) && (mouseX < x1+w1) && (mouseY > y1) && (mouseY < y1+h1)) {
-    state = 5;
-  } else if ((mouseX > x2) && (mouseX < x2+w2) && (mouseY > y2) && (mouseY < y2+h2)) {
-    state = 6;
-  } else if ((mouseX > x3) && (mouseX < x3+w3) && (mouseY > y3) && (mouseY < y3+h3)) {
-    state = 7;
+    if (mouseX > x1 && mouseX < x1 + w1 && mouseY > y1 && mouseY < y1 + h1) {
+      state = 5;
+    } else if (
+      mouseX > x2 &&
+      mouseX < x2 + w2 &&
+      mouseY > y2 &&
+      mouseY < y2 + h2
+    ) {
+      state = 6;
+    } else if (
+      mouseX > x3 &&
+      mouseX < x3 + w3 &&
+      mouseY > y3 &&
+      mouseY < y3 + h3
+    ) {
+      state = 7;
+    }
   }
-}
 }
 
 function draw1() {
@@ -172,7 +175,6 @@ function draw2() {
   text("BEGINNER", 15, 160, 175);
   text("INTERMEDIATE", 108, 160, 200);
   text("EXPERT", 212, 160, 200);
-  
 }
 
 function draw3() {
@@ -199,112 +201,109 @@ function draw4() {
 
 function draw5() {
   //Beginner Level-once completed redirect to leaderboard
-  
+
   let f1 = new Flag(200, 90);
   let f2 = new Flag(300, 200);
   let f3 = new Flag(50, 100);
-  
+
   flags.push(f1);
   flags.push(f2);
   flags.push(f3);
-  
+
   let L1 = new Lap(350, 150);
-  
+
   lap.push(L1);
-  
- 
-  
+
   imageMode(CORNER);
-  
+
   lap[0].display();
-  
+
   background(img5);
   car1();
   countdown();
   text(timer, 380, 30);
   lapCount();
-  text("SCORE = "+ points, 70, 225);
-  
+  text("SCORE = " + points, 70, 225);
+
   flags[0].display();
   flags[1].display();
   flags[2].display();
   flags[0].addTime(carX1, carY1);
   flags[1].addTime(carX1, carY1);
   flags[2].addTime(carX1, carY1);
-  
+
   lap[0].addTime(carX1, carY1);
-  
 }
 
 function draw6() {
   //Intermediate Level-once completed redirect to leaderboard
-  
+
   let f1 = new Flag(240, 110);
   let f2 = new Flag(300, 200);
   let f3 = new Flag(150, 20);
-  
+
   flags.push(f1);
   flags.push(f2);
   flags.push(f3);
-  
+
   let L1 = new Lap(50, 90);
-  
+
   lap.push(L1);
-  
+
   imageMode(CORNER);
-  
+
   lap[0].display();
-  
+
   background(img6);
   car2();
   countdown();
   text(timer, 40, 30);
   lapCount();
-  text("SCORE = "+ points, 350, 20);
-  
+  text("SCORE = " + points, 350, 20);
+
   flags[0].display();
   flags[1].display();
   flags[2].display();
   flags[0].addTime(carX2, carY2);
   flags[1].addTime(carX2, carY2);
   flags[2].addTime(carX2, carY2);
-  
+
   lap[0].addTime(carX2, carY2);
 }
 
 function draw7() {
   //Expert Level-once completed redirect to leaderboard
-  
+
   let f1 = new Flag(375, 40);
   let f2 = new Flag(300, 220);
   let f3 = new Flag(160, 130);
-  
+
   flags.push(f1);
   flags.push(f2);
   flags.push(f3);
-  
+
   let L1 = new Lap(200, 10);
-  
+
   lap.push(L1);
-  
+
   imageMode(CORNER);
-  
+
   lap[0].display();
-  
+
   background(img7);
   car3();
   countdown();
   text(timer, 210, 130);
   lapCount();
-  text("SCORE = "+ points, 200, 75);
-  
+  text("SCORE = " + points, 200, 75);
+
   flags[0].display();
   flags[1].display();
   flags[2].display();
   flags[0].addTime(carX3, carY3);
   flags[1].addTime(carX3, carY3);
   flags[2].addTime(carX3, carY3);
-  
+
   lap[0].addTime(carX3, carY3);
 }
 
@@ -313,9 +312,9 @@ function draw8() {
   imageMode(CORNER);
   background(150);
   fill(0);
-  text("TIME'S UP! YOUR SCORE IS " + points, width/2, height/2);
+  text("TIME'S UP! YOUR SCORE IS " + points, width / 2, height / 2);
   textSize(20);
-  text("PRESS SPACE TO GO BACK TO MAIN MENU", width/2, 200);
+  text("PRESS SPACE TO GO BACK TO MAIN MENU", width / 2, 200);
 }
 
 function car1() {
@@ -437,17 +436,17 @@ function handleControlsMap2() {
 
 function b1() {
   fill(250);
-  rect(x1, y1, w1 ,h1);
+  rect(x1, y1, w1, h1);
 }
 
 function b2() {
   fill(250);
-  rect(x2, y2, w2 ,h2);
+  rect(x2, y2, w2, h2);
 }
 
 function b3() {
   fill(250);
-  rect(x3, y3, w3 ,h3);
+  rect(x3, y3, w3, h3);
 }
 
 function m1f1() {
@@ -457,12 +456,12 @@ function m1f1() {
 
 function countdown() {
   textSize(25);
-  fill('red');
-  
-  if (frameCount % 60 == 0 && timer > 0){
-    timer --;
+  fill("red");
+
+  if (frameCount % 60 == 0 && timer > 0) {
+    timer--;
   }
-  
+
   if (timer < 0) {
     state = 8;
     timer = resetT;
@@ -470,14 +469,13 @@ function countdown() {
 }
 
 function checkP(x, y) {
-  image(flagImg, x, y)
+  image(flagImg, x, y);
 }
 
 function lapCount() {
   textSize(25);
-  fill('blue');
-  
-  
+  fill("blue");
+
   if (timer < 0) {
     points = resetP;
   }
